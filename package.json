@@ -1,0 +1,22 @@
+{
+  "name": "game15",
+  "version": "1.0.0",
+  "description": "game15",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/jkniazeva/game15.git"
+  },
+  "author": "Jane Kniazeva",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/jkniazeva/game15/issues"
+  },
+  "homepage": "https://github.com/jkniazeva/game15#readme",
+  "dependencies": {
+    "jest": "^29.5.0"
+  }
+}
