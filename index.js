@@ -25,3 +25,4 @@ const _gameFieldConsole = (arr) => {
 }
 
 _gameFieldConsole(gameField);
+
