@@ -1,16 +1,11 @@
-const sum = require('./sum.js');
-
-console.log('Game15');
-let gameField = [
+let gameFieldArray = [
     [-1, -1, -1, -1, -1, -1],
-    [-1, 0, 1, 2, 3, -1],
-    [-1, 4, 5, 6, 7, -1],
+    [-1, 1, 5, 2, 3, -1],
+    [-1, 4, 0, 6, 7, -1],
     [-1, 8, 9, 10, 11, -1],
     [-1, 12, 13, 14, 15, -1],
     [-1, -1, -1, -1, -1, -1]
 ];
-
-console.log(sum(3,4));
 
 // Функция для вывода игрового поля в консоль
 const _gameFieldConsole = (arr) => {
@@ -31,12 +26,41 @@ const _gameFieldConsole = (arr) => {
     return result;
 }
 
-_gameFieldConsole(gameField);
+_gameFieldConsole(gameFieldArray);
 
-module.exports = _gameFieldConsole;
+let gameFieldCollection = document.querySelectorAll('.item');
 
-let item_11 = document.getElementsByClassName('item-11');
+// Функция для подготовки игрового поля.
+const gameFieldStart = (arr, fn) => {
+    for (let elem of arr) {
+        elem.addEventListener('click', fn);
+    }
+}
 
-item_11.addEventListener('click', () => {
+// Функция проверки слева (предикат)
+const checkLeft = (i, j) => gameFieldArray[i][j-1] === 0;
+// Функция проверки сверху (предикат)
+const checkTop = (i, j) => gameFieldArray[i-1][j] === 0;
+// Функция проверки снизу (предикат)
+const checkBottom = (i, j) => gameFieldArray[i+1][j] === 0;
+// Функция проверки справа (предикат)
+const checkRight = (i, j) => gameFieldArray[i][j+1] === 0;
 
-});
+
+// Функция действия на клик по item
+function clickAction() {
+    console.log(this.dataset.i, this.dataset.j);
+    let i = +this.dataset.i;
+    let j = +this.dataset.j;
+    // this.dataset.i = '100';
+    // console.log(this.dataset.i);
+    // console.log(gameFieldArray[i][j]);
+    if (checkLeft(i, j)) console.log('ноль слева');
+    if (checkTop(i, j)) console.log('ноль сверху');
+    if (checkBottom(i, j)) console.log('ноль снизу');
+    if (checkRight(i, j)) console.log('ноль справа');
+}
+
+gameFieldStart(gameFieldCollection, clickAction);
+
+// module.exports = _gameFieldConsole;

@@ -95,3 +95,8 @@ span:hover {
     left: 168px;
     top: 168px;
 }
+.item-zero {
+    background: transparent;
+    outline: 2px solid darkgray;
+    outline-offset: -2px;
+}
