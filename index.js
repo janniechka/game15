@@ -19,6 +19,10 @@ document.addEventListener('DOMContentLoaded', () => {
             result += gameFieldLine;
             gameFieldLine = '';
         }
+        return result;
+    }
+
+    const _gameFieldPageVisualization = (arr) => {
         // Visualization of the game field
         for(let i = 1; i <= arr.length - 2; i++) {
             for(let j = 1; j <= arr.length - 2; j++) {
@@ -30,31 +34,34 @@ document.addEventListener('DOMContentLoaded', () => {
             }
             gameFieldVisualization.innerHTML = gameFieldVisualization.innerHTML + '<br>';
         }
-        return result;
     }
 
     _gameFieldConsole(gameFieldArray);
 
+    _gameFieldPageVisualization(gameFieldArray);
+
     let gameFieldCollection = document.querySelectorAll('.item');
 
-// Функция для подготовки игрового поля.
+    // console.log(gameFieldCollection)
+
+    // Функция для подготовки игрового поля.
     const gameFieldStart = (arr, fn) => {
         for (let elem of arr) {
             elem.addEventListener('click', fn);
         }
     }
 
-// Функция проверки слева (предикат)
+    // Функция проверки слева (предикат)
     const checkLeft = (i, j) => gameFieldArray[i][j-1] === 0;
-// Функция проверки сверху (предикат)
+    // Функция проверки сверху (предикат)
     const checkTop = (i, j) => gameFieldArray[i-1][j] === 0;
-// Функция проверки снизу (предикат)
+    // Функция проверки снизу (предикат)
     const checkBottom = (i, j) => gameFieldArray[i+1][j] === 0;
-// Функция проверки справа (предикат)
+    // Функция проверки справа (предикат)
     const checkRight = (i, j) => gameFieldArray[i][j+1] === 0;
 
 
-// Функция для согласования визуализации поля и gameFieldArray
+    // Функция для согласования визуализации поля и gameFieldArray
     function updateGameFieldVisualization() {
         const myDiv = document.getElementById('myDiv');
         const gameFieldCollection = myDiv.querySelectorAll('.item');
@@ -72,7 +79,7 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     }
 
-// Функция для проверки выигрыша
+    // Функция для проверки выигрыша
     function gameOver() {
         let gameOverStr = '';
         const myDiv = document.getElementById('myDiv');
@@ -84,24 +91,55 @@ document.addEventListener('DOMContentLoaded', () => {
             console.log('Game Over');
             gameOverVisualization.style.display = 'flex';
         } else {
-            // gameOverVisualization.style.display = 'flex';
             console.log(`gameOverStr = ${gameOverStr}`);
             console.log('Try Again');
         }
     }
 
-// Функция действия на клик по item
+
+    // function animateSwap(elem1, elem2) {
+    //     // Get the positions of the elements
+    //     const pos1 = {
+    //         top: elem1.style.top,
+    //         left: elem1.style.left
+    //     };
+    //     const pos2 = {
+    //         top: elem2.style.top,
+    //         left: elem2.style.left
+    //     };
+    //
+    //     // Swap the positions using CSS transitions
+    //     elem1.style.transition = 'top 0.5s, left 0.5s';
+    //     elem1.style.top = pos2.top + 'px';
+    //     elem1.style.left = pos2.left + 'px';
+    //
+    //     elem2.style.transition = 'top 0.5s, left 0.5s';
+    //     elem2.style.top = pos1.top + 'px';
+    //     elem2.style.left = pos1.left + 'px';
+    //
+    //     // After the animation, remove the transition styles
+    //     setTimeout(() => {
+    //         elem1.style.transition = '';
+    //         elem2.style.transition = '';
+    //     }, 500);
+    // }
+
+
+    // Функция действия на клик по item
     function clickAction() {
-        // console.log(this.dataset.i, this.dataset.j);
         let i = +this.dataset.i;
         let j = +this.dataset.j;
-        // this.dataset.i = '100';
-        // console.log(this.dataset.i);
-        // console.log(gameFieldArray[i][j]);
+        let zero = document.querySelector('.item-zero');
         if (checkLeft(i, j)) {
             // console.log('ноль слева');
+            // console.log(zero);
+            // console.log(this);
+            // console.log(this.style.top);
+            // console.log(this.style.left);
             gameFieldArray[i][j-1] = gameFieldArray[i][j];
             gameFieldArray[i][j] = 0;
+            this.style.left = '56px';
+            zero.style.left = '112px';
         }
         if (checkTop(i, j)) {
             // console.log('ноль сверху');
@@ -119,12 +157,12 @@ document.addEventListener('DOMContentLoaded', () => {
             gameFieldArray[i][j] = 0;
         }
         gameFieldVisualization.innerHTML = '';
-        _gameFieldConsole(gameFieldArray);
+        _gameFieldPageVisualization(gameFieldArray);
         updateGameFieldVisualization();
         gameOver()
     }
 
     gameFieldStart(gameFieldCollection, clickAction);
 
-// module.exports = _gameFieldConsole;
+    // module.exports = _gameFieldConsole;
 });
