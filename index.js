@@ -95,36 +95,7 @@ document.addEventListener('DOMContentLoaded', () => {
             console.log('Try Again');
         }
     }
-
-
-    // function animateSwap(elem1, elem2) {
-    //     // Get the positions of the elements
-    //     const pos1 = {
-    //         top: elem1.style.top,
-    //         left: elem1.style.left
-    //     };
-    //     const pos2 = {
-    //         top: elem2.style.top,
-    //         left: elem2.style.left
-    //     };
-    //
-    //     // Swap the positions using CSS transitions
-    //     elem1.style.transition = 'top 0.5s, left 0.5s';
-    //     elem1.style.top = pos2.top + 'px';
-    //     elem1.style.left = pos2.left + 'px';
-    //
-    //     elem2.style.transition = 'top 0.5s, left 0.5s';
-    //     elem2.style.top = pos1.top + 'px';
-    //     elem2.style.left = pos1.left + 'px';
-    //
-    //     // After the animation, remove the transition styles
-    //     setTimeout(() => {
-    //         elem1.style.transition = '';
-    //         elem2.style.transition = '';
-    //     }, 500);
-    // }
-
-
+    
     // Функция действия на клик по item
     function clickAction() {
         let i = +this.dataset.i;
@@ -138,8 +109,9 @@ document.addEventListener('DOMContentLoaded', () => {
             // console.log(this.style.left);
             gameFieldArray[i][j-1] = gameFieldArray[i][j];
             gameFieldArray[i][j] = 0;
-            this.style.left = '56px';
-            zero.style.left = '112px';
+            console.log(+this.style.left.slice(0,-2))
+            this.style.left = `${+this.style.left.slice(0,-2) - MOVE_ITEM}px`;
+            zero.style.left = `${+zero.style.left.slice(0,-2) + MOVE_ITEM}px`;
         }
         if (checkTop(i, j)) {
             // console.log('ноль сверху');
@@ -158,7 +130,7 @@ document.addEventListener('DOMContentLoaded', () => {
         }
         gameFieldVisualization.innerHTML = '';
         _gameFieldPageVisualization(gameFieldArray);
-        updateGameFieldVisualization();
+        // updateGameFieldVisualization();
         gameOver()
     }
 
