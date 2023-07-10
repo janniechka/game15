@@ -1,5 +1,5 @@
-1) доделать clickAction
+1) доделать clickAction +
 
-2) gameOver работает от arr
+2) gameOver работает от arr +
 
 3) константы зависимы от размера экрана

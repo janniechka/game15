@@ -49,6 +49,8 @@ span {
     position: absolute;
     width: 48px;
     height: 48px;
+    /*width: 3vw;*/
+    /*height: 3vw;*/
     display: flex;
     justify-content: center;
     align-items: center;
@@ -58,7 +60,7 @@ span:hover {
     cursor: pointer;
 }
 .item {
-    transition: left 1s linear 0s;
+    transition: left 1s linear, top 1s linear 0s;
 }
 
 /*@keyframes myship {*/
