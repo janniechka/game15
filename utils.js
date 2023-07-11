@@ -57,3 +57,19 @@ const _gameFieldPageVisualization = (arr) => {
         gameFieldVisualization.innerHTML = gameFieldVisualization.innerHTML + '<br>';
     }
 }
+
+
+const changeGameFieldArray = (arr, {a, b, c, d}) => {
+    arr[c][d] = arr[a][b];
+    arr[a][b] = 0;
+}
+
+function changeDatasetIndex(elem, zero, {indexStr, a, b}) {
+    elem.dataset[indexStr] = String(a);
+    zero.dataset[indexStr] = String(+elem.dataset[indexStr] + b);
+}
+
+function changeItemPosition(elem, zero, direction, step1, step2) {
+    elem.style[direction] = `${+elem.style[direction].slice(0,-2) + step1}px`;
+    zero.style[direction] = `${+zero.style[direction].slice(0,-2) + step2}px`;
+}
