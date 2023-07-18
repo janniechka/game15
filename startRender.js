@@ -17,7 +17,8 @@ const renderGameField = (arr) => {
             let myDivSpan = document.createElement('span');
             myDivSpan.dataset.i = `${i}`;
             myDivSpan.dataset.j = `${j}`;
-            myDivSpan.dataset.value = `${arr[i][j]}`;
+            // myDivSpan.dataset.value = `${arr[i][j]}`;
+            myDivSpan.id = `id-${arr[i][j]}`;
             myDivSpan.innerHTML = `${arr[i][j]}`;
             myDivSpan.className = arr[i][j] === 0 ? `item item-zero` : `item`;
             myDivSpan.style.top = `${(i - 1) * MOVE_ITEM}px`;

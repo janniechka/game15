@@ -73,11 +73,13 @@ document.addEventListener('DOMContentLoaded', () => {
             changeGameFieldArray(gameFieldArray, {a: i, b: j, c: i, d: j - 1});
             changeDatasetIndex(this, zero, {indexStr: 'j', a: j - 1, b: 1});
             changeItemPosition(this, zero, 'left', -MOVE_ITEM, MOVE_ITEM);
+            console.log('left');
         }
         if (checkRight(i, j, gameFieldArray)) {
             changeGameFieldArray(gameFieldArray, {a: i, b: j, c: i, d: j + 1});
             changeDatasetIndex(this, zero, {indexStr: 'j', a: j + 1, b: -1});
             changeItemPosition(this, zero, 'left', MOVE_ITEM, -MOVE_ITEM);
+            console.log('right');
         }
         if (checkTop(i, j, gameFieldArray)) {
             changeGameFieldArray(gameFieldArray, {a: i, b: j, c: i - 1, d: j});
@@ -134,18 +136,40 @@ document.addEventListener('DOMContentLoaded', () => {
         if(checkBottomValue(nullBtnI, nullBtnJ)) {
             btnVariants.push([nullBtnI+1, nullBtnJ]);
         }
-        let randomBtn = btnVariants[getRandomInt(0, btnVariants.length)];
-        console.log(btnVariants);
-        console.log(randomBtn);
+        let randomNumber = getRandomInt(0, btnVariants.length);
+        let randomBtn = btnVariants[randomNumber];
+        // console.log(randomBtn);
         neededBtnI = randomBtn[0];
         neededBtnJ = randomBtn[1];
-        console.log(neededBtnI, neededBtnJ);
+        // console.log(neededBtnI, neededBtnJ);
 
         let zero = document.querySelector('.item-zero');
+        let neededElem = document.querySelector(`#id-${gameFieldArray[neededBtnI][neededBtnJ]}`);
+        // console.log(neededElem);
+        // console.log(zero);
 
-        if(getRandomInt(0, btnVariants.length) === 0) {
-
+        if(randomNumber === 0) {
+            // changeGameFieldArray(gameFieldArray, {a: neededBtnI, b: neededBtnJ, c: neededBtnI, d: neededBtnJ + 1});
+            // changeDatasetIndex(neededElem, zero, {indexStr: 'j', a: neededBtnJ + 1, b: -1});
+            // changeItemPosition(neededElem, zero, 'left', MOVE_ITEM, -MOVE_ITEM);
+            changeGameFieldArray(gameFieldArray, {a: neededBtnI, b: neededBtnJ, c: nullBtnI, d: nullBtnJ});
+            changeDatasetIndex(neededElem, zero, {indexStr: 'j', a: neededBtnJ, b: -1});
+            changeItemPosition(neededElem, zero, 'left', MOVE_ITEM, -MOVE_ITEM);
         }
+        if(randomNumber === 2) {
+            // changeGameFieldArray(gameFieldArray, {a: neededBtnI, b: neededBtnJ, c: neededBtnI, d: neededBtnJ + 1});
+            // changeDatasetIndex(neededElem, zero, {indexStr: 'j', a: neededBtnJ + 1, b: -1});
+            // changeItemPosition(neededElem, zero, 'left', MOVE_ITEM, -MOVE_ITEM);
+            // changeGameFieldArray(gameFieldArray, {a: i, b: j, c: i, d: j - 1});
+            // changeDatasetIndex(this, zero, {indexStr: 'j', a: j - 1, b: 1});
+            // changeItemPosition(this, zero, 'left', -MOVE_ITEM, MOVE_ITEM);
+
+            changeGameFieldArray(gameFieldArray, {a: neededBtnI, b: neededBtnJ, c: nullBtnI, d: nullBtnJ});
+            changeDatasetIndex(neededElem, zero, {indexStr: 'j', a: neededBtnJ, b: 1});
+            changeItemPosition(neededElem, zero, 'left', -MOVE_ITEM, MOVE_ITEM);
+        }
+        gameFieldVisualization.innerHTML = '';
+        _gameFieldPageVisualization(gameFieldArray);
     }
 
     // module.exports = _gameFieldConsole;
