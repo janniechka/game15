@@ -106,14 +106,45 @@ document.addEventListener('DOMContentLoaded', () => {
     const mixButton = document.querySelector('.mix-btn');
     mixButton.addEventListener('click', mixGameFieldAction);
 
-    function mixGameFieldAction(gameFieldArray) {
-        console.log('hi')
-        for(let i = 1; i < gameFieldArray.length - 2; i++) {
-            for(let j = 1; j < gameFieldArray.length - 2; j++) {
-                if(gameFieldArray[i][j] === 0) {
-                    console.log(`i = ${i}, j = ${j}`);
-                }
-            }
+    const checkLeftValue = (i, j) => gameFieldArray[i][j-1] !== -1;
+    const checkTopValue = (i, j) => gameFieldArray[i-1][j] !== -1;
+    const checkRightValue = (i, j) => gameFieldArray[i][j+1] !== -1;
+    const checkBottomValue = (i, j) => gameFieldArray[i+1][j] !== -1;
+    function getRandomInt(min, max) {
+        min = Math.ceil(min);
+        max = Math.floor(max);
+        return Math.floor(Math.random() * (max - min)) + min; //Максимум не включается, минимум включается
+    }
+
+    function mixGameFieldAction() {
+        let nullBtnI = 3;
+        let nullBtnJ = 3;
+        let neededBtnI = null;
+        let neededBtnJ = null;
+        let btnVariants = [];
+        if(checkLeftValue(nullBtnI, nullBtnJ)) {
+            btnVariants.push([nullBtnI, nullBtnJ-1]);
+        }
+        if(checkTopValue(nullBtnI, nullBtnJ)) {
+            btnVariants.push([nullBtnI-1, nullBtnJ]);
+        }
+        if(checkRightValue(nullBtnI, nullBtnJ)) {
+            btnVariants.push([nullBtnI, nullBtnJ+1]);
+        }
+        if(checkBottomValue(nullBtnI, nullBtnJ)) {
+            btnVariants.push([nullBtnI+1, nullBtnJ]);
+        }
+        let randomBtn = btnVariants[getRandomInt(0, btnVariants.length)];
+        console.log(btnVariants);
+        console.log(randomBtn);
+        neededBtnI = randomBtn[0];
+        neededBtnJ = randomBtn[1];
+        console.log(neededBtnI, neededBtnJ);
+
+        let zero = document.querySelector('.item-zero');
+
+        if(getRandomInt(0, btnVariants.length) === 0) {
+
         }
     }
 
