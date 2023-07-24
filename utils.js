@@ -58,17 +58,21 @@ const _gameFieldPageVisualization = (arr) => {
     }
 }
 
-
+// Функция для обмена местами элементов в массиве
 const changeGameFieldArray = (arr, {a, b, c, d}) => {
     arr[c][d] = arr[a][b];
     arr[a][b] = 0;
 }
 
+// Функция для смены индексов dataset.i если элементы переставляются в столбце и dataset.j если в строке.
+// [indexStr] принимает 'i' или 'j' соответственно
 function changeDatasetIndex(elem, zero, {indexStr, a, b}) {
     elem.dataset[indexStr] = String(a);
     zero.dataset[indexStr] = String(+elem.dataset[indexStr] + b);
 }
 
+// Функция которая производит фактический обмен местами в отображении, меняются параметры left если элемент передвигается в стоке и top если в столбце
+// [direction] принимает 'top' или 'left' соответственно
 function changeItemPosition(elem, zero, direction, step1, step2) {
     elem.style[direction] = `${+elem.style[direction].slice(0,-2) + step1}px`;
     zero.style[direction] = `${+zero.style[direction].slice(0,-2) + step2}px`;

@@ -26,11 +26,11 @@ body {
     margin: 0;
     color: rgba(0, 0, 0, 0.88);
 }
-div {
+#myDiv {
     position: relative;
     margin: 0 auto;
-    width: 528px;
-    height: 216px;
+    width: 408px;
+    height: 408px;
 }
 h1 {
     text-align: center;
@@ -56,20 +56,24 @@ h1 {
 }
 .wrapper {
     display: flex;
+    flex-direction: column;
     justify-content: center;
+    align-items: center;
     gap: 96px;
 }
 span {
     background: darkgray;
     border-radius: 8px;
     position: absolute;
-    width: 48px;
-    height: 48px;
+    width: 96px;
+    height: 96px;
     /*width: 3vw;*/
     /*height: 3vw;*/
     display: flex;
     justify-content: center;
     align-items: center;
+    font-size: 35px;
+    line-height: 44px;
 }
 span:hover {
     box-shadow: 0 12px 48px rgba(0, 0, 0, 0.4);
@@ -78,72 +82,6 @@ span:hover {
 .item {
     transition: left 1s linear, top 1s linear 0s;
 }
-
-/*@keyframes myship {*/
-/*    from {left: 0;}*/
-/*    to{left: 56px;}*/
-/*}*/
-
-/*.item-12 {*/
-/*    left: 56px;*/
-/*    top: 0;*/
-/*}*/
-/*.item-13 {*/
-/*    left: 112px;*/
-/*    top: 0;*/
-/*}*/
-/*.item-14 {*/
-/*    left: 168px;*/
-/*    top: 0;*/
-/*}*/
-/*.item-21 {*/
-/*    left: 0;*/
-/*    top: 56px;*/
-/*}*/
-/*.item-22 {*/
-/*    left: 56px;*/
-/*    top: 56px;*/
-/*}*/
-/*.item-23 {*/
-/*    left: 112px;*/
-/*    top: 56px;*/
-/*}*/
-/*.item-24 {*/
-/*    left: 168px;*/
-/*    top: 56px;*/
-/*}*/
-/*.item-31 {*/
-/*    left: 0;*/
-/*    top: 112px;*/
-/*}*/
-/*.item-32 {*/
-/*    left: 56px;*/
-/*    top: 112px;*/
-/*}*/
-/*.item-33 {*/
-/*    left: 112px;*/
-/*    top: 112px;*/
-/*}*/
-/*.item-34 {*/
-/*    left: 168px;*/
-/*    top: 112px;*/
-/*}*/
-/*.item-41 {*/
-/*    left: 0;*/
-/*    top: 168px;*/
-/*}*/
-/*.item-42 {*/
-/*    left: 56px;*/
-/*    top: 168px;*/
-/*}*/
-/*.item-43 {*/
-/*    left: 112px;*/
-/*    top: 168px;*/
-/*}*/
-/*.item-44 {*/
-/*    left: 168px;*/
-/*    top: 168px;*/
-/*}*/
 .item-zero {
     background: transparent;
     outline: 2px solid darkgray;

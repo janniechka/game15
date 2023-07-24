@@ -85,11 +85,13 @@ document.addEventListener('DOMContentLoaded', () => {
             changeGameFieldArray(gameFieldArray, {a: i, b: j, c: i - 1, d: j});
             changeDatasetIndex(this, zero, {indexStr: 'i', a: i - 1, b: 1});
             changeItemPosition(this, zero, 'top', -MOVE_ITEM, MOVE_ITEM);
+            console.log('top');
         }
         if (checkBottom(i, j, gameFieldArray)) {
             changeGameFieldArray(gameFieldArray, {a: i, b: j, c: i + 1, d: j});
             changeDatasetIndex(this, zero, {indexStr: 'i', a: i + 1, b: -1});
             changeItemPosition(this, zero, 'top', MOVE_ITEM, -MOVE_ITEM);
+            console.log('bottom');
         }
         gameFieldVisualization.innerHTML = '';
         _gameFieldPageVisualization(gameFieldArray);
@@ -106,7 +108,20 @@ document.addEventListener('DOMContentLoaded', () => {
     // При нажатии на кнопку поле совершает заданное количество ходов
 
     const mixButton = document.querySelector('.mix-btn');
-    mixButton.addEventListener('click', mixGameFieldAction);
+    // mixButton.addEventListener('click', mixGameFieldAction);
+    mixButton.addEventListener('click', () => mixGameFieldOneByOne(5));
+
+    const mixGameFieldOneByOne = (numTimes) => {
+        let count = 0;
+        const interval = setInterval(() => {
+            if (count >= numTimes) {
+                clearInterval(interval);
+            } else {
+                mixGameFieldAction();
+                count++;
+            }
+        }, 1000); // Adjust the delay (in milliseconds) between each move here (e.g., 1000ms = 1 second).
+    };
 
     const checkLeftValue = (i, j) => gameFieldArray[i][j-1] !== -1;
     const checkTopValue = (i, j) => gameFieldArray[i-1][j] !== -1;
@@ -119,8 +134,10 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     function mixGameFieldAction() {
-        let nullBtnI = 3;
-        let nullBtnJ = 3;
+        let zero = document.querySelector('.item-zero');
+        let nullBtnI = +zero.dataset.i;
+        let nullBtnJ = +zero.dataset.j;
+        // console.log(nullBtnI, nullBtnJ)
         let neededBtnI = null;
         let neededBtnJ = null;
         let btnVariants = [];
@@ -137,36 +154,32 @@ document.addEventListener('DOMContentLoaded', () => {
             btnVariants.push([nullBtnI+1, nullBtnJ]);
         }
         let randomNumber = getRandomInt(0, btnVariants.length);
+
         let randomBtn = btnVariants[randomNumber];
-        // console.log(randomBtn);
+
+        // console.log(btnVariants);
         neededBtnI = randomBtn[0];
         neededBtnJ = randomBtn[1];
-        // console.log(neededBtnI, neededBtnJ);
-
-        let zero = document.querySelector('.item-zero');
         let neededElem = document.querySelector(`#id-${gameFieldArray[neededBtnI][neededBtnJ]}`);
-        // console.log(neededElem);
-        // console.log(zero);
-
-        if(randomNumber === 0) {
-            // changeGameFieldArray(gameFieldArray, {a: neededBtnI, b: neededBtnJ, c: neededBtnI, d: neededBtnJ + 1});
-            // changeDatasetIndex(neededElem, zero, {indexStr: 'j', a: neededBtnJ + 1, b: -1});
-            // changeItemPosition(neededElem, zero, 'left', MOVE_ITEM, -MOVE_ITEM);
+        if(checkRight(neededBtnI, neededBtnJ, gameFieldArray)) {
             changeGameFieldArray(gameFieldArray, {a: neededBtnI, b: neededBtnJ, c: nullBtnI, d: nullBtnJ});
-            changeDatasetIndex(neededElem, zero, {indexStr: 'j', a: neededBtnJ, b: -1});
+            changeDatasetIndex(neededElem, zero, {indexStr: 'j', a: neededBtnJ + 1, b: -1});
             changeItemPosition(neededElem, zero, 'left', MOVE_ITEM, -MOVE_ITEM);
         }
-        if(randomNumber === 2) {
-            // changeGameFieldArray(gameFieldArray, {a: neededBtnI, b: neededBtnJ, c: neededBtnI, d: neededBtnJ + 1});
-            // changeDatasetIndex(neededElem, zero, {indexStr: 'j', a: neededBtnJ + 1, b: -1});
-            // changeItemPosition(neededElem, zero, 'left', MOVE_ITEM, -MOVE_ITEM);
-            // changeGameFieldArray(gameFieldArray, {a: i, b: j, c: i, d: j - 1});
-            // changeDatasetIndex(this, zero, {indexStr: 'j', a: j - 1, b: 1});
-            // changeItemPosition(this, zero, 'left', -MOVE_ITEM, MOVE_ITEM);
-
+        if(checkBottom(neededBtnI, neededBtnJ, gameFieldArray)) {
             changeGameFieldArray(gameFieldArray, {a: neededBtnI, b: neededBtnJ, c: nullBtnI, d: nullBtnJ});
-            changeDatasetIndex(neededElem, zero, {indexStr: 'j', a: neededBtnJ, b: 1});
+            changeDatasetIndex(neededElem, zero, {indexStr: 'i', a: neededBtnI + 1, b: -1});
+            changeItemPosition(neededElem, zero, 'top', MOVE_ITEM, -MOVE_ITEM);
+        }
+        if(checkLeft(neededBtnI, neededBtnJ, gameFieldArray)) {
+            changeGameFieldArray(gameFieldArray, {a: neededBtnI, b: neededBtnJ, c: nullBtnI, d: nullBtnJ});
+            changeDatasetIndex(neededElem, zero, {indexStr: 'j', a: neededBtnJ - 1, b: 1});
             changeItemPosition(neededElem, zero, 'left', -MOVE_ITEM, MOVE_ITEM);
+        }
+        if(checkTop(neededBtnI, neededBtnJ, gameFieldArray)) {
+            changeGameFieldArray(gameFieldArray, {a: neededBtnI, b: neededBtnJ, c: nullBtnI, d: nullBtnJ});
+            changeDatasetIndex(neededElem, zero, {indexStr: 'i', a: neededBtnI - 1, b: 1});
+            changeItemPosition(neededElem, zero, 'top', -MOVE_ITEM, MOVE_ITEM);
         }
         gameFieldVisualization.innerHTML = '';
         _gameFieldPageVisualization(gameFieldArray);

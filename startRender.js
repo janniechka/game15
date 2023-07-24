@@ -1,4 +1,4 @@
-const MOVE_ITEM = 56;
+const MOVE_ITEM = 104;
 let gameFieldArray = [
     [-1, -1, -1, -1, -1, -1],
     [-1, 1, 2, 3, 4, -1],
