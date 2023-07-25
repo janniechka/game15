@@ -102,16 +102,19 @@ document.addEventListener('DOMContentLoaded', () => {
     }
     //****************************************************************************************
 
-    gameFieldStart(gameFieldCollection, clickAction);
+    // gameFieldStart(gameFieldCollection, clickAction);
 
 
     // При нажатии на кнопку поле совершает заданное количество ходов
 
+    const movesCount = document.querySelector('#movesCount');
+
     const mixButton = document.querySelector('.mix-btn');
     // mixButton.addEventListener('click', mixGameFieldAction);
-    mixButton.addEventListener('click', () => mixGameFieldOneByOne(5));
+    mixButton.addEventListener('click', () => mixGameFieldOneByOne(+movesCount.value));
 
     const mixGameFieldOneByOne = (numTimes) => {
+        gameFieldStart(gameFieldCollection, clickAction);
         let count = 0;
         const interval = setInterval(() => {
             if (count >= numTimes) {
