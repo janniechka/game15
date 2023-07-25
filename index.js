@@ -73,21 +73,25 @@ document.addEventListener('DOMContentLoaded', () => {
             changeGameFieldArray(gameFieldArray, {a: i, b: j, c: i, d: j - 1});
             changeDatasetIndex(this, zero, {indexStr: 'j', a: j - 1, b: 1});
             changeItemPosition(this, zero, 'left', -MOVE_ITEM, MOVE_ITEM);
+            console.log('left');
         }
         if (checkRight(i, j, gameFieldArray)) {
             changeGameFieldArray(gameFieldArray, {a: i, b: j, c: i, d: j + 1});
             changeDatasetIndex(this, zero, {indexStr: 'j', a: j + 1, b: -1});
             changeItemPosition(this, zero, 'left', MOVE_ITEM, -MOVE_ITEM);
+            console.log('right');
         }
         if (checkTop(i, j, gameFieldArray)) {
             changeGameFieldArray(gameFieldArray, {a: i, b: j, c: i - 1, d: j});
             changeDatasetIndex(this, zero, {indexStr: 'i', a: i - 1, b: 1});
             changeItemPosition(this, zero, 'top', -MOVE_ITEM, MOVE_ITEM);
+            console.log('top');
         }
         if (checkBottom(i, j, gameFieldArray)) {
             changeGameFieldArray(gameFieldArray, {a: i, b: j, c: i + 1, d: j});
             changeDatasetIndex(this, zero, {indexStr: 'i', a: i + 1, b: -1});
             changeItemPosition(this, zero, 'top', MOVE_ITEM, -MOVE_ITEM);
+            console.log('bottom');
         }
         gameFieldVisualization.innerHTML = '';
         _gameFieldPageVisualization(gameFieldArray);
@@ -98,13 +102,29 @@ document.addEventListener('DOMContentLoaded', () => {
     }
     //****************************************************************************************
 
-    gameFieldStart(gameFieldCollection, clickAction);
+    // gameFieldStart(gameFieldCollection, clickAction);
 
 
     // При нажатии на кнопку поле совершает заданное количество ходов
 
+    const movesCount = document.querySelector('#movesCount');
+
     const mixButton = document.querySelector('.mix-btn');
-    mixButton.addEventListener('click', mixGameFieldAction);
+    // mixButton.addEventListener('click', mixGameFieldAction);
+    mixButton.addEventListener('click', () => mixGameFieldOneByOne(+movesCount.value));
+
+    const mixGameFieldOneByOne = (numTimes) => {
+        gameFieldStart(gameFieldCollection, clickAction);
+        let count = 0;
+        const interval = setInterval(() => {
+            if (count >= numTimes) {
+                clearInterval(interval);
+            } else {
+                mixGameFieldAction();
+                count++;
+            }
+        }, 1000); // Adjust the delay (in milliseconds) between each move here (e.g., 1000ms = 1 second).
+    };
 
     const checkLeftValue = (i, j) => gameFieldArray[i][j-1] !== -1;
     const checkTopValue = (i, j) => gameFieldArray[i-1][j] !== -1;
@@ -117,8 +137,10 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     function mixGameFieldAction() {
-        let nullBtnI = 3;
-        let nullBtnJ = 3;
+        let zero = document.querySelector('.item-zero');
+        let nullBtnI = +zero.dataset.i;
+        let nullBtnJ = +zero.dataset.j;
+        // console.log(nullBtnI, nullBtnJ)
         let neededBtnI = null;
         let neededBtnJ = null;
         let btnVariants = [];
@@ -134,18 +156,36 @@ document.addEventListener('DOMContentLoaded', () => {
         if(checkBottomValue(nullBtnI, nullBtnJ)) {
             btnVariants.push([nullBtnI+1, nullBtnJ]);
         }
-        let randomBtn = btnVariants[getRandomInt(0, btnVariants.length)];
-        console.log(btnVariants);
-        console.log(randomBtn);
+        let randomNumber = getRandomInt(0, btnVariants.length);
+
+        let randomBtn = btnVariants[randomNumber];
+
+        // console.log(btnVariants);
         neededBtnI = randomBtn[0];
         neededBtnJ = randomBtn[1];
-        console.log(neededBtnI, neededBtnJ);
-
-        let zero = document.querySelector('.item-zero');
-
-        if(getRandomInt(0, btnVariants.length) === 0) {
-
+        let neededElem = document.querySelector(`#id-${gameFieldArray[neededBtnI][neededBtnJ]}`);
+        if(checkRight(neededBtnI, neededBtnJ, gameFieldArray)) {
+            changeGameFieldArray(gameFieldArray, {a: neededBtnI, b: neededBtnJ, c: nullBtnI, d: nullBtnJ});
+            changeDatasetIndex(neededElem, zero, {indexStr: 'j', a: neededBtnJ + 1, b: -1});
+            changeItemPosition(neededElem, zero, 'left', MOVE_ITEM, -MOVE_ITEM);
         }
+        if(checkBottom(neededBtnI, neededBtnJ, gameFieldArray)) {
+            changeGameFieldArray(gameFieldArray, {a: neededBtnI, b: neededBtnJ, c: nullBtnI, d: nullBtnJ});
+            changeDatasetIndex(neededElem, zero, {indexStr: 'i', a: neededBtnI + 1, b: -1});
+            changeItemPosition(neededElem, zero, 'top', MOVE_ITEM, -MOVE_ITEM);
+        }
+        if(checkLeft(neededBtnI, neededBtnJ, gameFieldArray)) {
+            changeGameFieldArray(gameFieldArray, {a: neededBtnI, b: neededBtnJ, c: nullBtnI, d: nullBtnJ});
+            changeDatasetIndex(neededElem, zero, {indexStr: 'j', a: neededBtnJ - 1, b: 1});
+            changeItemPosition(neededElem, zero, 'left', -MOVE_ITEM, MOVE_ITEM);
+        }
+        if(checkTop(neededBtnI, neededBtnJ, gameFieldArray)) {
+            changeGameFieldArray(gameFieldArray, {a: neededBtnI, b: neededBtnJ, c: nullBtnI, d: nullBtnJ});
+            changeDatasetIndex(neededElem, zero, {indexStr: 'i', a: neededBtnI - 1, b: 1});
+            changeItemPosition(neededElem, zero, 'top', -MOVE_ITEM, MOVE_ITEM);
+        }
+        gameFieldVisualization.innerHTML = '';
+        _gameFieldPageVisualization(gameFieldArray);
     }
 
     // module.exports = _gameFieldConsole;

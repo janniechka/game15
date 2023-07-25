@@ -1,10 +1,10 @@
-const MOVE_ITEM = 56;
+const MOVE_ITEM = 104;
 let gameFieldArray = [
     [-1, -1, -1, -1, -1, -1],
     [-1, 1, 2, 3, 4, -1],
     [-1, 5, 6, 7, 8, -1],
-    [-1, 9, 10, 0, 12, -1],
-    [-1, 13, 14, 15, 11, -1],
+    [-1, 9, 10, 11, 12, -1],
+    [-1, 13, 14, 15, 0, -1],
     [-1, -1, -1, -1, -1, -1]
 ];
 
@@ -17,7 +17,8 @@ const renderGameField = (arr) => {
             let myDivSpan = document.createElement('span');
             myDivSpan.dataset.i = `${i}`;
             myDivSpan.dataset.j = `${j}`;
-            myDivSpan.dataset.value = `${arr[i][j]}`;
+            // myDivSpan.dataset.value = `${arr[i][j]}`;
+            myDivSpan.id = `id-${arr[i][j]}`;
             myDivSpan.innerHTML = `${arr[i][j]}`;
             myDivSpan.className = arr[i][j] === 0 ? `item item-zero` : `item`;
             myDivSpan.style.top = `${(i - 1) * MOVE_ITEM}px`;
