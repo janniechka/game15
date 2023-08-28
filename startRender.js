@@ -1,4 +1,5 @@
 const MOVE_ITEM = 104;
+// const MOVE_ITEM = 68;
 let gameFieldArray = [
     [-1, -1, -1, -1, -1, -1],
     [-1, 1, 2, 3, 4, -1],
@@ -7,6 +8,8 @@ let gameFieldArray = [
     [-1, 13, 14, 15, 0, -1],
     [-1, -1, -1, -1, -1, -1]
 ];
+let countElement = document.getElementById('count');
+let movesCounter = document.querySelector('.moves-counter');
 
 const renderGameField = (arr) => {
     let wrapper = document.querySelector('.wrapper');
@@ -20,7 +23,7 @@ const renderGameField = (arr) => {
             // myDivSpan.dataset.value = `${arr[i][j]}`;
             myDivSpan.id = `id-${arr[i][j]}`;
             myDivSpan.innerHTML = `${arr[i][j]}`;
-            myDivSpan.className = arr[i][j] === 0 ? `item item-zero` : `item`;
+            myDivSpan.className = arr[i][j] === 0 ? `item item-zero btn-before-mix` : `item btn-before-mix`;
             myDivSpan.style.top = `${(i - 1) * MOVE_ITEM}px`;
             myDivSpan.style.left = `${(j - 1) * MOVE_ITEM}px`;
             myDiv.append(myDivSpan);
@@ -31,3 +34,18 @@ const renderGameField = (arr) => {
 
 // Первичный рендеринг игрового поля
 renderGameField(gameFieldArray);
+
+
+// После каждого хода игрока счетчик увеличивается
+const createCount = () => {
+    let count = 0;
+    return () => {
+        return {
+            getCount: () => count,
+            setCount: () => {
+                count += 1;
+            }
+        }
+    }
+}
+let counter = createCount()();

@@ -81,6 +81,7 @@ h1 {
 }
 span {
     background: darkgray;
+    outline: none;
     border-radius: 8px;
     position: absolute;
     width: 96px;
@@ -92,16 +93,49 @@ span {
     align-items: center;
     font-size: 35px;
     line-height: 44px;
+    user-select: none;
+}
+span.item-zero, span.btn-before-mix.item-zero {
+    background: transparent;
+    box-shadow: none !important;
+    color: transparent;
+    cursor: auto !important;
+    outline: none;
+}
+span.btn-before-mix {
+    background: transparent;
+    outline: 1px solid darkgray;
+    outline-offset: -1px;
 }
 span:hover {
     box-shadow: 0 12px 48px rgba(0, 0, 0, 0.4);
     cursor: pointer;
 }
 .item {
-    transition: left 1s linear, top 1s linear 0s;
+    transition: left .5s linear, top .5s linear 0s;
 }
 .item-zero {
     background: transparent;
     outline: 2px solid darkgray;
     outline-offset: -2px;
+}
+.moves-counter {
+    display: none;
+}
+.moves-counter span {
+    position: initial;
+    margin: 0 auto 24px auto;
+}
+
+@media (max-width: 400px) {
+    #myDiv {
+        width: 268px;
+        height: 268px;
+    }
+    span {
+        width: 64px;
+        height: 64px;
+        font-size: 28px;
+        line-height: 32px;
+    }
 }
