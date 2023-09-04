@@ -111,9 +111,9 @@ span:hover {
     box-shadow: 0 12px 48px rgba(0, 0, 0, 0.4);
     cursor: pointer;
 }
-.item {
-    transition: left .5s linear, top .5s linear 0s;
-}
+/*.item {*/
+/*    transition: left 3s linear, top 3s linear 0s;*/
+/*}*/
 .item-zero {
     background: transparent;
     outline: 2px solid darkgray;
@@ -127,7 +127,7 @@ span:hover {
     margin: 0 auto 24px auto;
 }
 
-@media (max-width: 400px) {
+@media (max-width: 420px) {
     #myDiv {
         width: 268px;
         height: 268px;
@@ -139,3 +139,4 @@ span:hover {
         line-height: 32px;
     }
 }
+/*420px*/

@@ -83,7 +83,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 mixGameFieldAction();
                 count++;
             }
-        }, 1000); // Adjust the delay (in milliseconds) between each move here (e.g., 1000ms = 1 second).
+        }, mixSpeed);
         movesCounter.style.display = 'block';
     };
 
@@ -149,7 +149,10 @@ document.addEventListener('DOMContentLoaded', () => {
         _gameFieldPageVisualization(gameFieldArray);
     }
 
-    //
+    let startAgain = document.getElementById('startAgain');
+    startAgain.addEventListener('click', () => {
+        renderGameField(gameFieldArray);
+    })
 
     // module.exports = _gameFieldConsole;
 });

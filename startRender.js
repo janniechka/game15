@@ -1,5 +1,5 @@
-const MOVE_ITEM = 104;
-// const MOVE_ITEM = 68;
+let MOVE_ITEM = 104;
+let mixSpeed = 300;
 let gameFieldArray = [
     [-1, -1, -1, -1, -1, -1],
     [-1, 1, 2, 3, 4, -1],
@@ -10,6 +10,14 @@ let gameFieldArray = [
 ];
 let countElement = document.getElementById('count');
 let movesCounter = document.querySelector('.moves-counter');
+let pageWidth = document.documentElement.scrollWidth;
+console.log(pageWidth);
+
+if(pageWidth <= 420) {
+    MOVE_ITEM = 68;
+}
+
+console.log(MOVE_ITEM);
 
 const renderGameField = (arr) => {
     let wrapper = document.querySelector('.wrapper');
@@ -26,6 +34,7 @@ const renderGameField = (arr) => {
             myDivSpan.className = arr[i][j] === 0 ? `item item-zero btn-before-mix` : `item btn-before-mix`;
             myDivSpan.style.top = `${(i - 1) * MOVE_ITEM}px`;
             myDivSpan.style.left = `${(j - 1) * MOVE_ITEM}px`;
+            myDivSpan.style.transition = `left ${mixSpeed}ms linear, top ${mixSpeed}ms linear 0s`
             myDiv.append(myDivSpan);
         }
     }
