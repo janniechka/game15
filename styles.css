@@ -10,6 +10,8 @@ html {
     height: 100%;
     background: rgba(0, 0, 0, 0.9);
     display: none;
+    flex-direction: column;
+    gap: 16px;
     align-items: center;
     justify-content: center;
 }
@@ -26,7 +28,7 @@ body {
     margin: 0;
     color: rgba(0, 0, 0, 0.88);
 }
-#myDiv {
+#fieldWrapper {
     position: relative;
     margin: 0 auto;
     width: 408px;
@@ -72,7 +74,7 @@ h1 {
     cursor: pointer;
     box-shadow: 1px 5px 5px rgba(0, 0, 0, 0.35);
 }
-.wrapper {
+#mainWrapper {
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -111,6 +113,18 @@ span:hover {
     box-shadow: 0 12px 48px rgba(0, 0, 0, 0.4);
     cursor: pointer;
 }
+#startAgain {
+    font-size: 24px;
+    line-height: 32px;
+    background: lightgray;
+    border: none;
+    border-radius: 8px;
+    padding: 8px 16px;
+    text-transform: uppercase;
+}
+#startAgain:hover {
+    cursor: pointer;
+}
 /*.item {*/
 /*    transition: left 3s linear, top 3s linear 0s;*/
 /*}*/
@@ -128,7 +142,7 @@ span:hover {
 }
 
 @media (max-width: 420px) {
-    #myDiv {
+    #fieldWrapper {
         width: 268px;
         height: 268px;
     }

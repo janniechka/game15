@@ -4,9 +4,9 @@ document.addEventListener('DOMContentLoaded', () => {
 
     gameFieldVisualization.innerHTML = '';
 
-    _gameFieldConsole(gameFieldArray);
-
-    _gameFieldPageVisualization(gameFieldArray);
+    // _gameFieldConsole(gameFieldArray);
+    //
+    // _gameFieldPageVisualization(gameFieldArray);
 
     let gameFieldCollection = document.querySelectorAll('.item');
 
@@ -50,13 +50,13 @@ document.addEventListener('DOMContentLoaded', () => {
             console.log('bottom');
         }
         gameFieldVisualization.innerHTML = '';
-        _gameFieldPageVisualization(gameFieldArray);
+        // _gameFieldPageVisualization(gameFieldArray);
         counter.setCount();
         countNumber = counter.getCount();
         console.log(countNumber);
         countElement.innerText = countNumber;
         // updateGameFieldVisualization();
-        if(gameOver(gameFieldArray)) {
+        if(isGameOver(gameFieldArray)) {
             gameOverVisualization.style.display = 'flex';
         }
     }
@@ -73,7 +73,7 @@ document.addEventListener('DOMContentLoaded', () => {
     // mixButton.addEventListener('click', mixGameFieldAction);
     mixButton.addEventListener('click', () => mixGameFieldOneByOne(+movesCount.value));
 
-    const mixGameFieldOneByOne = (numTimes) => {
+    const mixGameFieldOneByOne = numTimes => {
         gameFieldStart(gameFieldCollection, clickAction);
         let count = 0;
         const interval = setInterval(() => {
@@ -91,13 +91,14 @@ document.addEventListener('DOMContentLoaded', () => {
     const checkTopValue = (i, j) => gameFieldArray[i-1][j] !== -1;
     const checkRightValue = (i, j) => gameFieldArray[i][j+1] !== -1;
     const checkBottomValue = (i, j) => gameFieldArray[i+1][j] !== -1;
-    function getRandomInt(min, max) {
+    const getRandomInt = (min, max) => {
         min = Math.ceil(min);
         max = Math.floor(max);
         return Math.floor(Math.random() * (max - min)) + min; //Максимум не включается, минимум включается
     }
 
-    function mixGameFieldAction() {
+    // нельзя ли разбить на несколько функций?
+    const mixGameFieldAction = () => {
         let zero = document.querySelector('.item-zero');
         let nullBtnI = +zero.dataset.i;
         let nullBtnJ = +zero.dataset.j;
@@ -146,12 +147,21 @@ document.addEventListener('DOMContentLoaded', () => {
             changeItemPosition(neededElem, zero, 'top', -MOVE_ITEM, MOVE_ITEM);
         }
         gameFieldVisualization.innerHTML = '';
-        _gameFieldPageVisualization(gameFieldArray);
+        // _gameFieldPageVisualization(gameFieldArray);
     }
 
     let startAgain = document.getElementById('startAgain');
     startAgain.addEventListener('click', () => {
-        renderGameField(gameFieldArray);
+        gameOverVisualization.style.display = 'none';
+        movesCounter.style.display = 'none';
+        gameFieldVisualization.innerHTML = '';
+        // _gameFieldConsole(gameFieldArray);
+        // _gameFieldPageVisualization(gameFieldArray);
+        countElement.innerText = '0';
+        for (let elem of gameFieldCollection) {
+            elem.removeEventListener('click', clickAction);
+            elem.classList.add('btn-before-mix');
+        }
     })
 
     // module.exports = _gameFieldConsole;
