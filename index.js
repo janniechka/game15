@@ -106,21 +106,26 @@ document.addEventListener('DOMContentLoaded', () => {
         let neededBtnI = null;
         let neededBtnJ = null;
         let btnVariants = [];
-        if(checkLeftValue(nullBtnI, nullBtnJ)) {
+        let previousStep = [4, 4];
+        if(checkLeftValue(nullBtnI, nullBtnJ) && (String([nullBtnI, nullBtnJ-1]) !== String(previousStep))) {
             btnVariants.push([nullBtnI, nullBtnJ-1]);
         }
-        if(checkTopValue(nullBtnI, nullBtnJ)) {
+        if(checkTopValue(nullBtnI, nullBtnJ) && (String([nullBtnI-1, nullBtnJ]) !== String(previousStep))) {
             btnVariants.push([nullBtnI-1, nullBtnJ]);
         }
-        if(checkRightValue(nullBtnI, nullBtnJ)) {
+        if(checkRightValue(nullBtnI, nullBtnJ) && (String([nullBtnI, nullBtnJ+1]) !== String(previousStep))) {
             btnVariants.push([nullBtnI, nullBtnJ+1]);
         }
-        if(checkBottomValue(nullBtnI, nullBtnJ)) {
+        if(checkBottomValue(nullBtnI, nullBtnJ) && (String([nullBtnI+1, nullBtnJ]) !== String(previousStep))) {
             btnVariants.push([nullBtnI+1, nullBtnJ]);
         }
         let randomNumber = getRandomInt(0, btnVariants.length);
 
         let randomBtn = btnVariants[randomNumber];
+        console.log(randomBtn)
+        previousStep = randomBtn;
+
+        console.log(previousStep)
 
         // console.log(btnVariants);
         neededBtnI = randomBtn[0];
